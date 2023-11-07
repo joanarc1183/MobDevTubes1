@@ -1,4 +1,4 @@
-package com.example.tubes1
+package com.example.tubes1.ViewModel
 
 import androidx.lifecycle.ViewModel
 
