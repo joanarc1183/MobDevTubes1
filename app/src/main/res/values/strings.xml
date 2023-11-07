@@ -4,6 +4,7 @@
 
 
 <!-- diary -->
+    <string name="judul">Foto1</string>
     <string name="textDate">Date</string>
     <string name="date"></string>
     <string name="textDescription">Description</string>
