@@ -1,4 +1,4 @@
-package com.example.tubes1
+package com.example.tubes1.View
 
 import android.os.Bundle
 import android.view.LayoutInflater

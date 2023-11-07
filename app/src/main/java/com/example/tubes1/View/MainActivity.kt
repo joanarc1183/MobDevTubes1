@@ -1,7 +1,8 @@
-package com.example.tubes1
+package com.example.tubes1.View
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.tubes1.View.MainFragment
 import com.example.tubes1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

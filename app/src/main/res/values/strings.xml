@@ -11,4 +11,7 @@
     <string name="description"></string>
     <string name="textStory">Story</string>
     <string name="story"></string>
+
+<!--  List  -->
+    <string name="import_device">Import from Device</string>
 </resources>
