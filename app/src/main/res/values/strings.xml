@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Tubes1</string>
     <string name="test">Tes1</string>
+
+
+<!-- diary -->
+    <string name="textDate">Date</string>
+    <string name="date"></string>
+    <string name="textDescription">Description</string>
+    <string name="description"></string>
+    <string name="textStory">Story</string>
+    <string name="story"></string>
 </resources>
