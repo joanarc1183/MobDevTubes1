@@ -1,8 +1,7 @@
-package com.example.tubes1.View
+package com.example.tubes1.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.tubes1.View.MainFragment
 import com.example.tubes1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +12,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mainFragment = MainFragment()
-        supportFragmentManager.beginTransaction().replace(binding.fragmentContainer.id, mainFragment)
+        val imageFragment = ImageFragment()
+        supportFragmentManager.beginTransaction().replace(binding.fragmentContainer.id, imageFragment)
+            .commit()
     }
 }

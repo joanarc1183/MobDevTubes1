@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:id="@+id/fragmentContainer">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/import_device"
@@ -15,10 +14,8 @@
         android:text="@string/import_device"
         android:textAlignment="center"
         android:textColor="#000000" />
-
-    <GridView
-        android:id="@+id/gridView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numColumns="3"/>
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

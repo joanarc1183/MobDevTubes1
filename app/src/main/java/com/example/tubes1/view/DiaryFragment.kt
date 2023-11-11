@@ -1,4 +1,4 @@
-package com.example.tubes1.View
+package com.example.tubes1.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,7 +21,5 @@ class DiaryFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
     }
 }
