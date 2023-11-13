@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12sp"
-    android:id="@+id/fragmentDiary">
+    android:id="@+id/fragmentDraft">
 
     <EditText
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="300dp"
         android:layout_gravity="center"
-        android:id="@+id/photo"/>
+        android:id="photo"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,13 +68,11 @@
         android:text="@string/story"
         android:id="@+id/story"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/edit"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="end|bottom"
-        android:background="@drawable/button"
-        android:contentDescription="@string/textDescription"
-        android:src="@android:drawable/ic_menu_edit" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:layout_gravity="right"
+        android:id="@+id/save"/>
 
 </LinearLayout>
