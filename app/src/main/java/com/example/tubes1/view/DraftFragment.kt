@@ -1,4 +1,4 @@
-//package com.example.tubes1.view
+package com.example.tubes1.view//package com.example.tubes1.view
 //
 //import android.net.Uri
 //import android.os.Build
