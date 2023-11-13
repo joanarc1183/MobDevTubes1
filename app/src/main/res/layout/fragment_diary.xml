@@ -68,13 +68,13 @@
         android:text="@string/story"
         android:id="@+id/story"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/edit"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="end|bottom"
-        android:background="@drawable/button"
-        android:contentDescription="@string/textDescription"
-        android:src="@android:drawable/ic_menu_edit" />
+<!--    <android.support.design.widget.FloatingActionButton-->
+<!--        android:id="@+id/edit"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_gravity="end|bottom"-->
+<!--        android:background="@drawable/button"-->
+<!--        android:contentDescription="@string/textDescription"-->
+<!--        android:src="@android:drawable/ic_menu_edit" />-->
 
 </LinearLayout>

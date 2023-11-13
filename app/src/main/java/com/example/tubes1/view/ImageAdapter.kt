@@ -1,47 +1,43 @@
 package com.example.tubes1.view
 
-import android.graphics.BitmapFactory
+import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tubes1.R
+import com.example.tubes1.databinding.RecyclerItemBinding
 import com.example.tubes1.model.Image
 
-class ImageAdapter(private val onItemClick: (Image) -> Unit) :
-    RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
-    private var imageList: List<Image> = emptyList()
+    private var imageList: List<Image> = mutableListOf()
 
-    fun setImages(images: List<Image>) {
-        imageList = images
-        notifyDataSetChanged()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = RecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.recycler_item, parent, false)
-        return ImageViewHolder(view)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val image = imageList[position]
+        holder.bind(image)
     }
 
     override fun getItemCount(): Int {
         return imageList.size
     }
 
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        val image = imageList[position]
-        holder.bind(image)
-        holder.itemView.setOnClickListener { onItemClick(image) }
+    fun setImages(images: List<Image>) {
+        imageList = images
+        notifyDataSetChanged()
     }
 
-    class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageView: ImageView = itemView.findViewById(R.id.imageView)
+    inner class ViewHolder(private val binding: RecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(image: Image) {
-            val bitmap = BitmapFactory.decodeFile(image.path)
-            imageView.setImageBitmap(bitmap)
+            val uriString = image.uri
+            if (uriString.isNotEmpty()) {
+                val uri = Uri.parse(uriString)
+                binding.imageView.setImageURI(uri)
+            }
         }
     }
 }
