@@ -1,9 +1,11 @@
 package com.example.tubes1.view
 
 import android.Manifest
+import android.R
 import android.content.ContentValues
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,12 +24,14 @@ import com.example.tubes1.databinding.FragmentImageBinding
 import com.example.tubes1.model.Image
 import com.example.tubes1.viewmodel.GalleryRepository
 import com.example.tubes1.viewmodel.ImageViewModel
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
+
 
 class ImageFragment : Fragment() {
 
@@ -51,7 +55,8 @@ class ImageFragment : Fragment() {
             // Save image dan save ke URI
             val imageUri = saveImageToStorage(bitmap)
 
-            val currentDateForName = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+            val currentDateForName =
+                SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
 
             val today: LocalDate = LocalDate.now()
             val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
