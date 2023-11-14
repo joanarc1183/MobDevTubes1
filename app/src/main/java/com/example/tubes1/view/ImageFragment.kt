@@ -99,8 +99,24 @@ class ImageFragment : Fragment() {
     ): View? {
         binding = FragmentImageBinding.inflate(inflater, container, false)
         return binding.root
+
+        //val drawerLayout:DrawerLayout=view.findViewById(R.id.drawerLayout)
+        // val navView:NavigationView=view.findViewById(R.id.nav_view)
+        //toggle=ActionBarDrawerToggle(this,R.string.open,R.string.close)
+        //drawerLayout.addDrawerListener(toggle)
+        //toggle.syncState()
+        //supporActionBar?.setDisplayHomeAsUpEnabled(true)
+        //navView.setNavigationItemSelectedListener {
+        //  true
+        //}
     }
 
+    // override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    //   if(toggle.onOptionsItemSelected()){
+    //     true
+    //}
+    //return super.onOptionsItemSelected(item)
+    //}
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
