@@ -11,8 +11,21 @@ class ImageViewModel : ViewModel() {
     val imageList: LiveData<List<Image>> get() = _imageList
 
     fun addImage(image: Image) {
-        val currentList = _imageList.value.orEmpty().toMutableList()
-        currentList.add(image)
-        _imageList.value = currentList
+        // cek apakah image sekarang ada di imagelist atau tidak
+        val existingImage = _imageList.value?.firstOrNull { it.uri == image.uri }
+
+        if (existingImage == null) {
+            // Kalau tidak ada, masukan ke list
+            val currentList = _imageList.value.orEmpty().toMutableList()
+            currentList.add(image)
+            _imageList.value = currentList
+        } else {
+            // Kalau ada, update detailsnya tidak perlu dimasukan ke list
+            existingImage.name = image.name
+            existingImage.date = image.date
+            existingImage.story = image.story
+            _imageList.value = _imageList.value
+        }
     }
+
 }

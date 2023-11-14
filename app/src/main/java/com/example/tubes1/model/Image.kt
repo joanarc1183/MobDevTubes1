@@ -6,11 +6,25 @@ import android.os.Parcelable
 import java.util.*
 
 data class Image(
-    var uri: String,
-    val name: String,
-    val date: String,
-    val story: String,
-)
+    val uri: String,
+    var name: String,
+    var date: String,
+    var story: String
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Image
+
+        return uri == other.uri
+    }
+
+    override fun hashCode(): Int {
+        return uri.hashCode()
+    }
+}
+
 
 
 

@@ -1,9 +1,12 @@
 package com.example.tubes1.view
 
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.tubes1.R
 import com.example.tubes1.databinding.RecyclerItemBinding
 import com.example.tubes1.model.Image
 
@@ -33,10 +36,13 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
     inner class ViewHolder(private val binding: RecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(image: Image) {
-            val uriString = image.uri
-            if (uriString.isNotEmpty()) {
-                val uri = Uri.parse(uriString)
-                binding.imageView.setImageURI(uri)
+            if (!image.uri.isNullOrEmpty()) {
+                val uri = Uri.parse(image.uri)
+                Log.d("BIND", "URI: $uri")
+
+                Glide.with(itemView.context)
+                    .load(uri)
+                    .into(binding.imageView)
             }
         }
     }
