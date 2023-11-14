@@ -10,7 +10,36 @@ data class Image(
     var name: String,
     var date: String,
     var story: String
-) {
+) : Parcelable{
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: ""
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(uri)
+        parcel.writeString(name)
+        parcel.writeString(date)
+        parcel.writeString(story)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Image> {
+        override fun createFromParcel(parcel: Parcel): Image {
+            return Image(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Image?> {
+            return arrayOfNulls(size)
+        }
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

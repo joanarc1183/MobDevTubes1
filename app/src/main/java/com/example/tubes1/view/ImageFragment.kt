@@ -44,6 +44,13 @@ class ImageFragment : Fragment() {
     private val CAMERA_PERMISSION_REQUEST_CODE = 123
     private var colCount = 2
 
+    private val requestCameraPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                launchCameraIntent()
+            }
+        }
+
     private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { result ->
         result?.let { bitmap ->
             // Save image dan save ke URI
@@ -61,8 +68,6 @@ class ImageFragment : Fragment() {
         val contentValues = ContentValues().apply {
             put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_${System.currentTimeMillis()}.jpg")
             put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-            put(MediaStore.Images.Media.WIDTH, bitmap.width)
-            put(MediaStore.Images.Media.HEIGHT, bitmap.height)
         }
 
         val contentResolver = requireContext().contentResolver
@@ -136,10 +141,14 @@ class ImageFragment : Fragment() {
     }
 
     private fun checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
-        } else {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             launchCameraIntent()
+        } else {
+            requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
     }
 

@@ -1,6 +1,8 @@
 package com.example.tubes1.view
 
 import android.net.Uri
+import android.os.Bundle
+import android.provider.Settings.Global.putString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -34,7 +36,25 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(private val binding: RecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val image = imageList[position]
 
+                    val mainActivity = itemView.context as MainActivity
+
+                    mainActivity.supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, DiaryFragment().apply {
+                            arguments = Bundle().apply {
+                                putParcelable("image", image)
+                            }
+                        })
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        }
         fun bind(image: Image) {
             if (!image.uri.isNullOrEmpty()) {
                 val uri = Uri.parse(image.uri)
