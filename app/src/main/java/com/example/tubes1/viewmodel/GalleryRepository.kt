@@ -12,7 +12,6 @@ class GalleryRepository(context: Context) {
     fun saveImages(images: List<Image>) {
         val editor = sharedPreferences.edit()
 
-        // Clear existing data
         editor.clear()
 
         // Save new data
@@ -30,7 +29,7 @@ class GalleryRepository(context: Context) {
     fun getImages(): List<Image> {
         val imageList = mutableListOf<Image>()
 
-        // Retrieve data from SharedPreferences
+        // Retrieve data dari SharedPreferences
         var index = 0
         while (sharedPreferences.contains("uri_$index")) {
             val uri = sharedPreferences.getString("uri_$index", "") ?: ""

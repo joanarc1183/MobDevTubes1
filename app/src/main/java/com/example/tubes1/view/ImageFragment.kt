@@ -124,7 +124,6 @@ class ImageFragment : Fragment() {
         binding.toolbar.setOnClickListener {
             colCount = if (colCount == 3) 2 else 3
 
-            // Update the layout manager span count
             val layoutManager = GridLayoutManager(requireContext(), colCount)
             binding.recyclerView.layoutManager = layoutManager
         }
@@ -158,7 +157,9 @@ class ImageFragment : Fragment() {
     }
 
     private fun launchCameraIntent() {
-        takePicture.launch(null)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            takePicture.launch(null)
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

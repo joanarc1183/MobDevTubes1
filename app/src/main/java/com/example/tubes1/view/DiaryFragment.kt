@@ -45,18 +45,13 @@ class DiaryFragment: Fragment() {
         binding.name.setText(name)
         binding.photo.setImageURI(uri)
 
-        // harusnya buat zoomin
-//        Glide.with(requireContext())
-//            .load(uri)
-//            .into(binding.photo)
-
         binding.date.text = date
         binding.story.setText(story)
 
         binding.fabEdit.setOnClickListener {
             val draftView = DraftFragment()
 
-            // Pass the data to the DraftFragment
+            // Pass data ke DraftFragment
             val bundle = Bundle()
             bundle.putParcelable("image", Image(uri.toString(), name, date, story))
             draftView.arguments = bundle

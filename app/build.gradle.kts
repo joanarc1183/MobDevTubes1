@@ -78,4 +78,5 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     implementation("com.android.support:multidex:1.0.3")
+    implementation("com.github.MikeOrtiz:TouchImageView:1.4.1")
 }

@@ -11,13 +11,25 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:navigationIcon="@drawable/menu_bar" />
+        app:navigationIcon="@drawable/menu_bar"
+        android:layout_alignParentTop="true"/>
+
+    <Button
+        android:id="@+id/import_device"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:background="@color/purple_200"
+        android:padding="16sp"
+        android:text="@string/import_device"
+        android:textAlignment="center"
+        android:textColor="#000000" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/import_device"
         android:padding="16dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"

@@ -20,19 +20,13 @@
             android:textSize="36sp"
             android:id="@+id/name"/>
 
-        <ImageView
+        <com.ortiz.touchview.TouchImageView
             android:id="@+id/photo"
             android:layout_gravity="center"
-            android:layout_width="300dp"
-            android:layout_height="300dp"/>
-
-<!--        <com.github.MikeOrtiz.TouchImageView.TouchImageView-->
-<!--            android:id="@+id/photo"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="400dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            app:layout_constraintDimensionRatio="1:1"-->
-<!--            tools:ignore="MissingClass" />-->
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginVertical="10dp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
