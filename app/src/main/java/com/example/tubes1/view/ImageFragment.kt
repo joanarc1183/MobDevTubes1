@@ -5,33 +5,27 @@ import android.content.ContentValues
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toolbar
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.app.ActivityCompat
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tubes1.R
 import com.example.tubes1.databinding.FragmentImageBinding
 import com.example.tubes1.model.Image
 import com.example.tubes1.viewmodel.GalleryRepository
 import com.example.tubes1.viewmodel.ImageViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
-import java.io.OutputStream
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
@@ -51,13 +45,19 @@ class ImageFragment : Fragment() {
             }
         }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { result ->
         result?.let { bitmap ->
             // Save image dan save ke URI
             val imageUri = saveImageToStorage(bitmap)
 
             val currentDateForName = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-            val image = Image(imageUri.toString(), "IMG_$currentDateForName", currentDateForName, "")
+
+            val today: LocalDate = LocalDate.now()
+            val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+            val formattedToday: String = today.format(formatter)
+
+            val image = Image(imageUri.toString(), "IMG_$currentDateForName", formattedToday, "")
             galleryViewModel.addImage(image)
             galleryRepository.saveImages(galleryViewModel.imageList.value.orEmpty())
         }

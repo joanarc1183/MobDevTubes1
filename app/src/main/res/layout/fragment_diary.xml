@@ -1,67 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="12sp"
-    android:id="@+id/fragmentDiary">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/judul"
-        android:textSize="36sp"
-        android:id="@+id/name"/>
-
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:layout_gravity="center"
-        android:id="@+id/photo"/>
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:id="@+id/fragmentDiary">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:text="@string/textDate"
-            android:textAlignment="textEnd" />
+            android:text="@string/judul"
+            android:textSize="36sp"
+            android:id="@+id/name"/>
+
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="300dp"/>
+
+<!--        <com.github.MikeOrtiz.TouchImageView.TouchImageView-->
+<!--            android:id="@+id/photo"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="400dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            app:layout_constraintDimensionRatio="1:1"-->
+<!--            tools:ignore="MissingClass" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:text="@string/textDate"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textAlignment="textEnd"
+                android:id="@+id/date"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="01/11/2010"
-            android:textAlignment="textEnd"
-            android:id="@+id/date"/>
+            android:text="@string/textStory"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/story"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabEdit"
+            android:layout_gravity="end|bottom"
+            android:contentDescription="@string/textDescription"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
     </LinearLayout>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textStory"
-        android:textSize="20sp"
-        android:layout_marginTop="10dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/story"
-        android:id="@+id/story"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/edit"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="end|bottom"
-        android:background="@drawable/button"
-        android:contentDescription="@string/textDescription"
-        android:src="@android:drawable/ic_menu_edit" />
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

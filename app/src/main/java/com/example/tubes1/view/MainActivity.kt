@@ -13,7 +13,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val imageFragment = ImageFragment()
-        supportFragmentManager.beginTransaction().replace(binding.fragmentContainer.id, imageFragment)
+        supportFragmentManager.beginTransaction()
+            .replace(binding.fragmentContainer.id, imageFragment)
             .commit()
     }
 }

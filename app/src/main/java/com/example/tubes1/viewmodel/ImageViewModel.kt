@@ -27,5 +27,4 @@ class ImageViewModel : ViewModel() {
             _imageList.value = _imageList.value
         }
     }
-
 }
