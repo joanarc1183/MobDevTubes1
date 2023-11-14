@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.tubes1.R
 import com.example.tubes1.databinding.FragmentDraftBinding
 import com.example.tubes1.model.Image
+import com.example.tubes1.viewmodel.GalleryRepository
 import com.example.tubes1.viewmodel.ImageViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -57,20 +58,19 @@ class DraftFragment: Fragment() {
             name = binding.name.text.toString()
             story = binding.story.text.toString()
 
+            // objek image di ubah deskripsinya
             val image = Image(uri.toString(), name, date, story)
             imageViewModel.addImage(image)
 
-            Log.d("HEHHEHEHE", name)
+            Log.d("updateimage", "jadi ini updateannya $name $story")
 
             val diaryView = DiaryFragment()
-
             val bundle = Bundle()
-//            val image = Image(uri.toString(), name, date, story)
             bundle.putParcelable("image", image)
             diaryView.arguments = bundle
 
             requireFragmentManager().beginTransaction()
-                .replace(binding.fragmentDraft.id, diaryView)
+                .replace(R.id.fragmentContainer, diaryView)
                 .addToBackStack(null)
                 .commit()
         }
