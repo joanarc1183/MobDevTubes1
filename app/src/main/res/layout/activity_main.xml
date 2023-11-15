@@ -29,7 +29,7 @@
         <!-- Sidebar Contents -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:orientation="vertical">
 
             <!-- Switcher -->
@@ -55,39 +55,6 @@
                     android:gravity="center" />
 
             </LinearLayout>
-
-            <!-- TextInputLayout -->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp">-->
-
-<!--                <com.google.android.material.textfield.TextInputLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent">-->
-
-<!--                    <com.google.android.material.textfield.TextInputEditText-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="48dp"-->
-<!--                        android:hint="Nama File" />-->
-<!--                </com.google.android.material.textfield.TextInputLayout>-->
-
-<!--            </LinearLayout>-->
-
-            <!-- Submit Button -->
-<!--            <Button-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_margin="8dp"-->
-<!--                android:text="Submit"-->
-<!--                android:id="@+id/submit"/>-->
-
-            <!-- Back Button -->
-<!--            <androidx.appcompat.widget.AppCompatButton-->
-<!--                android:id="@+id/back"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_margin="8dp"-->
-<!--                android:text="Back" />-->
 
         </LinearLayout>
 

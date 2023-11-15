@@ -2,7 +2,6 @@ package com.example.tubes1.view
 
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings.Global.putString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup

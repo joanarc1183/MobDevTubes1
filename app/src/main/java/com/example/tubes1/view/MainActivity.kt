@@ -5,7 +5,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Switch
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -13,7 +12,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.tubes1.R
 import com.example.tubes1.databinding.ActivityMainBinding
-import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -25,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val drawerLayout:DrawerLayout = findViewById(R.id.drawer_layout)
-//        val navview: NavigationView = findViewById(R.id.navView)
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.id.date, R.id.name)
         drawerLayout.addDrawerListener(toggle)
@@ -49,10 +46,9 @@ class MainActivity : AppCompatActivity() {
                 AppCompatDelegate.MODE_NIGHT_NO
             }
             if (currentNightMode != newNightMode) {
-                // Update the current night mode
                 currentNightMode = newNightMode
 
-                // Apply the new night mode
+                // apply night mode
                 AppCompatDelegate.setDefaultNightMode(newNightMode)
                 delegate.applyDayNight()
                 setTheme(if (isChecked) R.style.AppTheme_Light else R.style.AppTheme_Dark)

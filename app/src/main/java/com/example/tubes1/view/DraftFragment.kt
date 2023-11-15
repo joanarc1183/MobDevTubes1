@@ -15,8 +15,6 @@ import com.example.tubes1.databinding.FragmentDraftBinding
 import com.example.tubes1.model.Image
 import com.example.tubes1.viewmodel.GalleryRepository
 import com.example.tubes1.viewmodel.ImageViewModel
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class DraftFragment: Fragment() {
     private lateinit var binding: FragmentDraftBinding
