@@ -126,9 +126,9 @@ class ImageFragment : Fragment() {
         return Pair(width, height)
     }
 
-    private val imageAdapter by lazy {
-        ImageAdapter(galleryViewModel)
-    }
+//    private val imageAdapter by lazy {
+//        ImageAdapter(galleryViewModel)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -162,7 +162,7 @@ class ImageFragment : Fragment() {
 
         importDeviceButton = binding.importDevice
 
-//        val imageAdapter = ImageAdapter()
+        val imageAdapter = ImageAdapter()
 
         val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.layoutManager = GridLayoutManager(requireContext(), colCount)
