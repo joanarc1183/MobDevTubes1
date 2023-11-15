@@ -1,11 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    tools:context=".view.MainActivity"
+    style="@style/Screen">
+
+    <!-- Main Content -->
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent">
+
+        <!-- Add your main content views here -->
+
+    </FrameLayout>
+
+    <!-- Sidebar -->
+    <FrameLayout
+        android:id="@+id/sidebar"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/darker_gray">
+
+        <!-- Sidebar Contents -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Switcher -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="LightMode"
+                    android:textSize="18dp"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    style="@style/Text"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/switcher"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+            <!-- TextInputLayout -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="Nama File" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <!-- Submit Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="8dp"
+                android:text="Submit" />
+
+            <!-- Back Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/back"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="8dp"
+                android:text="Back" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

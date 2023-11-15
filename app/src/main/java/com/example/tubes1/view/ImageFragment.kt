@@ -13,19 +13,23 @@ import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toolbar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.annotation.Size
 import androidx.core.content.ContextCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tubes1.databinding.FragmentImageBinding
 import com.example.tubes1.model.Image
+import com.example.tubes1.viewcl.SettingFragment
 import com.example.tubes1.viewmodel.GalleryRepository
 import com.example.tubes1.viewmodel.ImageViewModel
 import java.io.ByteArrayOutputStream
@@ -37,7 +41,8 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
-
+import androidx.fragment.app.FragmentManager
+import com.example.tubes1.R
 
 class ImageFragment : Fragment() {
 
@@ -130,30 +135,50 @@ class ImageFragment : Fragment() {
 //        ImageAdapter(galleryViewModel)
 //    }
 
+    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentImageBinding.inflate(inflater, container, false)
-        return binding.root
 
-        //val drawerLayout:DrawerLayout=view.findViewById(R.id.drawerLayout)
-        // val navView:NavigationView=view.findViewById(R.id.nav_view)
-        //toggle=ActionBarDrawerToggle(this,R.string.open,R.string.close)
-        //drawerLayout.addDrawerListener(toggle)
-        //toggle.syncState()
-        //supporActionBar?.setDisplayHomeAsUpEnabled(true)
-        //navView.setNavigationItemSelectedListener {
-        //  true
-        //}
+//        val drawerLayout: DrawerLayout = binding.root.findViewById(R.id.drawerLayout)
+//        val navView: NavigationView = binding.root.findViewById(R.id.nav_view)
+//        toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.open, R.string.close)
+//        drawerLayout.addDrawerListener(toggle)
+//        toggle.syncState()
+//        requireActivity().supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        navView.setNavigationItemSelectedListener {
+//            true
+//        }
+
+//        toolbar = binding.toolbar
+////        setSupportActionBar(toolbar)
+//
+//        toolbar.setOnClickListener(){
+//            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+//            val fragmentTransaction = fragmentManager.beginTransaction()
+//
+//            val prev = fragmentManager.findFragmentByTag("dialog")
+//            if (prev != null) {
+//                fragmentTransaction.remove(prev)
+//            }
+//
+//            val settingFragment = SettingFragment()
+//            fragmentTransaction.replace(R.id.fragmentContainer, settingFragment)
+//            fragmentTransaction.addToBackStack(null)
+//            fragmentTransaction.commit()
+//        }
+        return binding.root
     }
 
-    // override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    //   if(toggle.onOptionsItemSelected()){
-    //     true
-    //}
-    //return super.onOptionsItemSelected(item)
-    //}
+    //     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if(toggle.onOptionsItemSelected()){
+//            true
+//        }
+//        return super.onOptionsItemSelected(item)
+//     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -176,12 +201,13 @@ class ImageFragment : Fragment() {
             checkCameraPermission()
         }
 
-        binding.toolbar.setOnClickListener {
-            colCount = if (colCount == 3) 2 else 3
-
-            val layoutManager = GridLayoutManager(requireContext(), colCount)
-            binding.recyclerView.layoutManager = layoutManager
-        }
+        // ini di komen dl
+//        binding.toolbar.setOnClickListener {
+//            colCount = if (colCount == 3) 2 else 3
+//
+//            val layoutManager = GridLayoutManager(requireContext(), colCount)
+//            binding.recyclerView.layoutManager = layoutManager
+//        }
 
         importDeviceButton.setOnClickListener {
             openImagePicker()

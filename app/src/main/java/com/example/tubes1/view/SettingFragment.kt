@@ -17,10 +17,7 @@ class SettingFragment : Fragment(){
     ): View? {
         val view = inflater.inflate(R.layout.fragment_setting, container, false);
 
-        return view
-
-        lateinit var switch: Switch
-        switch=view.findViewById(R.id.switcher)
+        val switch:Switch = view.findViewById(R.id.switcher)
         switch.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -28,6 +25,6 @@ class SettingFragment : Fragment(){
                 false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
         }
+        return view
     }
-    }
-
+}
