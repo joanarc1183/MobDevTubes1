@@ -8,10 +8,12 @@ data class Image(
     val uri: String,
     var name: String,
     var date: String,
+    var description: String,
     var story: String
 ) : Parcelable{
 
     constructor(parcel: Parcel) : this(
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
@@ -22,6 +24,7 @@ data class Image(
         parcel.writeString(uri)
         parcel.writeString(name)
         parcel.writeString(date)
+        parcel.writeString(description)
         parcel.writeString(story)
     }
 

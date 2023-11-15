@@ -1,11 +1,9 @@
 package com.example.tubes1.view
 
 import android.Manifest
-import android.R
 import android.content.ContentValues
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -58,11 +56,16 @@ class ImageFragment : Fragment() {
             val currentDateForName =
                 SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
 
+            // Ubah format date
             val today: LocalDate = LocalDate.now()
             val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
             val formattedToday: String = today.format(formatter)
 
-            val image = Image(imageUri.toString(), "IMG_$currentDateForName", formattedToday, "")
+            val sizeInKb = getImageSize(bitmap)
+
+            val dimensions = getImageDimensions(bitmap)
+
+            val image = Image(imageUri.toString(), "IMG_$currentDateForName", formattedToday, "Size: $sizeInKb KB\nDimensions: ${dimensions.first} x ${dimensions.second}px", "")
             galleryViewModel.addImage(image)
             galleryRepository.saveImages(galleryViewModel.imageList.value.orEmpty())
         }
@@ -92,6 +95,21 @@ class ImageFragment : Fragment() {
         return uri
     }
 
+    // Method untuk mendapatkan size gambar/foto
+    private fun getImageSize(bitmap: Bitmap): Long {
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        val imageInByte = stream.toByteArray()
+        val size = imageInByte.size.toLong()
+        return size / 1024
+    }
+
+    // Method untuk mendapatkan dimensi gambar/foto
+    private fun getImageDimensions(bitmap: Bitmap): Pair<Int, Int> {
+        val width = bitmap.width
+        val height = bitmap.height
+        return Pair(width, height)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

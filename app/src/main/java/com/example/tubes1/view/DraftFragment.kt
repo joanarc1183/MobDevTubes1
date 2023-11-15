@@ -24,6 +24,7 @@ class DraftFragment: Fragment() {
     private lateinit var uri: Uri
     private lateinit var name: String
     private lateinit var date: String
+    private lateinit var description: String
     private lateinit var story: String
 
     override fun onCreateView(
@@ -36,6 +37,7 @@ class DraftFragment: Fragment() {
             uri = Uri.parse(it.uri)
             name = it.name
             date = it.date
+            description = it.description
             story = it.story
         }
         binding = FragmentDraftBinding.inflate(inflater, container, false)
@@ -51,6 +53,7 @@ class DraftFragment: Fragment() {
         // set name, date, story photo
         binding.name.setText(name)
         binding.date.text = date
+        binding.description.text = description
         binding.story.setText(story)
 
         binding.save.setOnClickListener(){
@@ -59,7 +62,7 @@ class DraftFragment: Fragment() {
             story = binding.story.text.toString()
 
             // objek image di ubah deskripsinya
-            val image = Image(uri.toString(), name, date, story)
+            val image = Image(uri.toString(), name, date, description, story)
             imageViewModel.addImage(image)
 
             Log.d("updateimage", "jadi ini updateannya $name $story")

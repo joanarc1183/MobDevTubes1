@@ -20,6 +20,7 @@ class DiaryFragment: Fragment() {
     private lateinit var uri: Uri
     private lateinit var name: String
     private lateinit var date: String
+    private lateinit var description: String
     private lateinit var story: String
 
     override fun onCreateView(
@@ -32,6 +33,7 @@ class DiaryFragment: Fragment() {
             uri = Uri.parse(it.uri)
             name = it.name
             date = it.date
+            description = it.description
             story = it.story
         }
         binding = FragmentDiaryBinding.inflate(inflater, container, false)
@@ -46,6 +48,7 @@ class DiaryFragment: Fragment() {
         binding.photo.setImageURI(uri)
 
         binding.date.text = date
+        binding.description.text = description
         binding.story.setText(story)
 
         binding.fabEdit.setOnClickListener {
@@ -53,7 +56,7 @@ class DiaryFragment: Fragment() {
 
             // Pass data ke DraftFragment
             val bundle = Bundle()
-            bundle.putParcelable("image", Image(uri.toString(), name, date, story))
+            bundle.putParcelable("image", Image(uri.toString(), name, date, description, story))
             draftView.arguments = bundle
 
             requireFragmentManager().beginTransaction()

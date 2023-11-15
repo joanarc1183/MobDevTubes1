@@ -19,6 +19,7 @@ class GalleryRepository(context: Context) {
             editor.putString("uri_$index", image.uri)
             editor.putString("name_$index", image.name)
             editor.putString("date_$index", image.date)
+            editor.putString("description_$index", image.description)
             editor.putString("story_$index", image.story)
         }
 
@@ -35,9 +36,10 @@ class GalleryRepository(context: Context) {
             val uri = sharedPreferences.getString("uri_$index", "") ?: ""
             val name = sharedPreferences.getString("name_$index", "") ?: ""
             val date = sharedPreferences.getString("date_$index", "") ?: ""
+            val description = sharedPreferences.getString("description_$index", "") ?: ""
             val story = sharedPreferences.getString("story_$index", "") ?: ""
 
-            val Image = Image(uri, name, date, story)
+            val Image = Image(uri, name, date, description, story)
             imageList.add(Image)
 
             index++
