@@ -1,7 +1,9 @@
 package com.example.tubes1.view
 
 import android.Manifest
+import android.app.Activity
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -11,6 +13,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -36,8 +39,10 @@ class ImageFragment : Fragment() {
     private lateinit var galleryViewModel: ImageViewModel
     private lateinit var galleryRepository: GalleryRepository
     private lateinit var binding: FragmentImageBinding
+    private lateinit var importDeviceButton: Button
 
-    private val CAMERA_PERMISSION_REQUEST_CODE = 123
+    private val IMPORT_IMAGE_REQUEST_CODE = 101
+    private val CAMERA_PERMISSION_REQUEST_CODE = 100
     private var colCount = 2
 
     private val requestCameraPermissionLauncher =
@@ -141,6 +146,8 @@ class ImageFragment : Fragment() {
         galleryRepository = GalleryRepository(requireContext())
         galleryViewModel = ViewModelProvider(requireActivity()).get(ImageViewModel::class.java)
 
+        importDeviceButton = binding.importDevice
+
         val imageAdapter = ImageAdapter()
 
         val recyclerView: RecyclerView = binding.recyclerView
@@ -162,7 +169,30 @@ class ImageFragment : Fragment() {
             binding.recyclerView.layoutManager = layoutManager
         }
 
+        importDeviceButton.setOnClickListener {
+            openImagePicker()
+        }
+    }
 
+    // Intent untuk import Image
+    private fun openImagePicker() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMPORT_IMAGE_REQUEST_CODE)
+    }
+
+    // Method untuk import image
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMPORT_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            val selectedImageUri = data.data
+            selectedImageUri?.let {
+                val currentDateForName = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+                val image = Image(it.toString(), "IMG_$currentDateForName", currentDateForName, "", "")
+                galleryViewModel.addImage(image)
+                galleryRepository.saveImages(galleryViewModel.imageList.value.orEmpty())
+            }
+        }
     }
 
     override fun onResume() {
