@@ -12,11 +12,13 @@ import com.bumptech.glide.Glide
 import com.example.tubes1.R
 import com.example.tubes1.databinding.FragmentDiaryBinding
 import com.example.tubes1.model.Image
+import com.example.tubes1.viewmodel.ImageViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class DiaryFragment: Fragment() {
     private lateinit var binding: FragmentDiaryBinding
+    private lateinit var imageViewModel: ImageViewModel
     private lateinit var uri: Uri
     private lateinit var name: String
     private lateinit var date: String
@@ -46,7 +48,6 @@ class DiaryFragment: Fragment() {
 
         binding.name.setText(name)
         binding.photo.setImageURI(uri)
-
         binding.date.text = date
         binding.description.text = description
         binding.story.setText(story)

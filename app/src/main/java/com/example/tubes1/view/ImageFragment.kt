@@ -6,9 +6,11 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.annotation.Size
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -26,7 +29,9 @@ import com.example.tubes1.model.Image
 import com.example.tubes1.viewmodel.GalleryRepository
 import com.example.tubes1.viewmodel.ImageViewModel
 import java.io.ByteArrayOutputStream
+import java.io.FileDescriptor
 import java.io.IOException
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -70,7 +75,12 @@ class ImageFragment : Fragment() {
 
             val dimensions = getImageDimensions(bitmap)
 
-            val image = Image(imageUri.toString(), "IMG_$currentDateForName", formattedToday, "Size: $sizeInKb KB\nDimensions: ${dimensions.first} x ${dimensions.second}px", "")
+            val image = Image(
+                imageUri.toString(),
+                "IMG_$currentDateForName",
+                formattedToday,
+                "Size: $sizeInKb KB\nDimensions: ${dimensions.first} x ${dimensions.second}px",
+                "")
             galleryViewModel.addImage(image)
             galleryRepository.saveImages(galleryViewModel.imageList.value.orEmpty())
         }
@@ -116,6 +126,10 @@ class ImageFragment : Fragment() {
         return Pair(width, height)
     }
 
+    private val imageAdapter by lazy {
+        ImageAdapter(galleryViewModel)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -148,7 +162,7 @@ class ImageFragment : Fragment() {
 
         importDeviceButton = binding.importDevice
 
-        val imageAdapter = ImageAdapter()
+//        val imageAdapter = ImageAdapter()
 
         val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.layoutManager = GridLayoutManager(requireContext(), colCount)
@@ -182,13 +196,47 @@ class ImageFragment : Fragment() {
     }
 
     // Method untuk import image
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMPORT_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri = data.data
             selectedImageUri?.let {
                 val currentDateForName = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-                val image = Image(it.toString(), "IMG_$currentDateForName", currentDateForName, "", "")
+
+                // Ubah format date
+                val today: LocalDate = LocalDate.now()
+                val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+                val formattedToday: String = today.format(formatter)
+
+                // size photo
+                val parcelFileDescriptor: ParcelFileDescriptor? =
+                    context?.contentResolver?.openFileDescriptor(it, "r", null)
+                val fileSize = parcelFileDescriptor?.statSize ?: 0L
+
+                var size: String
+                if (fileSize <= 0) {
+                    size = "0 KB"
+                } else {
+                    val units = arrayOf("B", "KB", "MB", "GB", "TB")
+                    val digitGroups = (Math.log10(fileSize.toDouble()) / Math.log10(1024.0)).toInt()
+                    size = DecimalFormat("#,##0.#").format(fileSize / Math.pow(1024.0, digitGroups.toDouble())) + " " + units[digitGroups]
+                }
+
+                // dimension photo
+                val options = BitmapFactory.Options()
+                options.inJustDecodeBounds = true
+                BitmapFactory.decodeStream(context?.contentResolver?.openInputStream(it), null, options)
+                options.inJustDecodeBounds = false
+                val dimensions = Pair(options.outWidth, options.outHeight)
+
+                val image = Image(
+                    it.toString(),
+                    "IMG_$currentDateForName",
+                    formattedToday,
+                    "Size: $size\nDimensions: ${dimensions.first} x ${dimensions.second}px",
+                    "")
+//                val image = Image(it.toString(), "IMG_$currentDateForName", currentDateForName, "", "")
                 galleryViewModel.addImage(image)
                 galleryRepository.saveImages(galleryViewModel.imageList.value.orEmpty())
             }
