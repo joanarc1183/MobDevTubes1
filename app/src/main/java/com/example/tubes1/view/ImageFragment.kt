@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -46,7 +47,7 @@ import com.example.tubes1.R
 
 class ImageFragment : Fragment() {
 
-    private lateinit var galleryViewModel: ImageViewModel
+    private lateinit var imageViewModel: ImageViewModel
     private lateinit var galleryRepository: GalleryRepository
     private lateinit var binding: FragmentImageBinding
     private lateinit var importDeviceButton: Button
@@ -86,8 +87,8 @@ class ImageFragment : Fragment() {
                 formattedToday,
                 "Size: $sizeInKb KB\nDimensions: ${dimensions.first} x ${dimensions.second}px",
                 "")
-            galleryViewModel.addImage(image)
-            galleryRepository.saveImages(galleryViewModel.imageList.value.orEmpty())
+            imageViewModel.addImage(image)
+            galleryRepository.saveImages(imageViewModel.imageList.value.orEmpty())
         }
     }
 
@@ -183,7 +184,7 @@ class ImageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         galleryRepository = GalleryRepository(requireContext())
-        galleryViewModel = ViewModelProvider(requireActivity()).get(ImageViewModel::class.java)
+        imageViewModel = ViewModelProvider(requireActivity()).get(ImageViewModel::class.java)
 
         importDeviceButton = binding.importDevice
 
@@ -193,7 +194,7 @@ class ImageFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(requireContext(), colCount)
         recyclerView.adapter = imageAdapter
 
-        galleryViewModel.imageList.observe(viewLifecycleOwner) { images ->
+        imageViewModel.imageList.observe(viewLifecycleOwner) { images ->
             imageAdapter.setImages(images)
         }
 
@@ -262,9 +263,8 @@ class ImageFragment : Fragment() {
                     formattedToday,
                     "Size: $size\nDimensions: ${dimensions.first} x ${dimensions.second}px",
                     "")
-//                val image = Image(it.toString(), "IMG_$currentDateForName", currentDateForName, "", "")
-                galleryViewModel.addImage(image)
-                galleryRepository.saveImages(galleryViewModel.imageList.value.orEmpty())
+                imageViewModel.addImage(image)
+                galleryRepository.saveImages(imageViewModel.imageList.value.orEmpty())
             }
         }
     }
@@ -272,14 +272,15 @@ class ImageFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val images = galleryRepository.getImages()
+//        Log.d("IMAGEFRAG OR", "$images")
         images.forEach { image ->
-            galleryViewModel.addImage(image)
+            imageViewModel.addImage(image)
         }
     }
 
     override fun onPause() {
         super.onPause()
-        galleryRepository.saveImages(galleryViewModel.imageList.value.orEmpty())
+        galleryRepository.saveImages(imageViewModel.imageList.value.orEmpty())
     }
 
     private fun checkCameraPermission() {

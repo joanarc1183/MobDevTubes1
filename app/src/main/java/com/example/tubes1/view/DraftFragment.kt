@@ -21,6 +21,7 @@ import java.time.format.DateTimeFormatter
 class DraftFragment: Fragment() {
     private lateinit var binding: FragmentDraftBinding
     private lateinit var imageViewModel: ImageViewModel
+    private lateinit var galleryRepository: GalleryRepository
     private lateinit var uri: Uri
     private lateinit var name: String
     private lateinit var date: String
@@ -49,6 +50,7 @@ class DraftFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         imageViewModel = ViewModelProvider(this).get(ImageViewModel::class.java)
+        galleryRepository = GalleryRepository(requireContext())
 
         // set name, date, story photo
         binding.name.setText(name)
@@ -62,14 +64,18 @@ class DraftFragment: Fragment() {
             story = binding.story.text.toString()
 
             // objek image di ubah deskripsinya
-            val image = Image(uri.toString(), name, date, description, story)
-            imageViewModel.addImage(image)
+            val tempImage = Image(uri.toString(), name, date, description, story)
+            val images = galleryRepository.getImages()
+            images.forEach { image ->
+                imageViewModel.editImage(image,tempImage)
+            }
+            galleryRepository.saveImages(images)
 
             Log.d("updateimage", "jadi ini updateannya $name $story")
 
             val diaryView = DiaryFragment()
             val bundle = Bundle()
-            bundle.putParcelable("image", image)
+            bundle.putParcelable("image", tempImage)
             diaryView.arguments = bundle
 
             requireFragmentManager().beginTransaction()
@@ -77,6 +83,5 @@ class DraftFragment: Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-
     }
 }
