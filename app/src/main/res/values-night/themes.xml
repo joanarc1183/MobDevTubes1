@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Tubes1" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Tubes1.Dark" parent="android:Theme.Material.Light.NoActionBar" />
     <style name="Screen">
         <item name="background">@color/black</item>
     </style>

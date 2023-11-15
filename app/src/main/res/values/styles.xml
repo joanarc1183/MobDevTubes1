@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/darkPrimaryColor</item>
+        <item name="colorPrimaryDark">@color/darkPrimaryDarkColor</item>
+        <item name="colorAccent">@color/darkAccentColor</item>
+    </style>
+
+    <!-- Light Mode Theme -->
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light">
+        <!-- Your light mode configurations go here -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+<!--        <item name="colorPrimary">@color/lightPrimaryColor</item>-->
+<!--        <item name="colorPrimaryDark">@color/lightPrimaryDarkColor</item>-->
+<!--        <item name="colorAccent">@color/lightAccentColor</item>-->
+    </style>
+
+    <!-- Dark Mode Theme -->
+    <style name="AppTheme.Dark" parent="Theme.AppCompat">
+        <!-- Your dark mode configurations go here -->
+        <item name="colorPrimary">@color/darkPrimaryColor</item>
+        <item name="colorPrimaryDark">@color/darkPrimaryDarkColor</item>
+        <item name="colorAccent">@color/darkAccentColor</item>
+    </style>
+</resources>
